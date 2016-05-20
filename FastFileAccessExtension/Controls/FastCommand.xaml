@@ -73,7 +73,7 @@
 
         <ListView ItemsSource="{Binding SolutionExplorerFiles}" x:Name="lsvActions"
                   SelectedItem="{Binding SelectedSolutionExplorerFile}"
-                  PreviewKeyDown="lsvActions_PreviewKeyDown" FontSize="16">
+                  KeyDown="lsvActions_KeyDown" FontSize="16">
             <ListView.View>
                 <GridView>
                     <!--<GridViewColumn Width="30">

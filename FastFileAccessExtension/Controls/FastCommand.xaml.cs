@@ -163,19 +163,21 @@ namespace FastFileAccessExtension.Controls
             }
         }
 
-        private void lsvActions_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Up && lsvActions.SelectedIndex == 0)
-            {
-                txtSearchBox.Focus();
-                e.Handled = true;
-            }
-        }
-
         private void txtSearchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             m_SearchString = txtSearchBox.Text;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SolutionExplorerFiles"));
+        }
+
+        private void lsvActions_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && this.SelectedSolutionExplorerFile != null)
+            {
+                e.Handled = true;
+
+                m_DTE.ItemOperations.OpenFile(this.SelectedSolutionExplorerFile.FullName);
+                this.Close();
+            }
         }
     }
 }

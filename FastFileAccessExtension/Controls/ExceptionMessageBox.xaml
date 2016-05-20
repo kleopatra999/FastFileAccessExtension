@@ -24,6 +24,7 @@
         Background="#2C3D5B"
         WindowStartupLocation="CenterOwner"
         Title="Fast file access - Exception Occured" 
+        Icon="pack://application:,,,/FastFileAccessExtension;component/Resources/OpenFastCommandPackage.ico"
         Height="500" Width="500">
     <Grid>
         <Grid.RowDefinitions>

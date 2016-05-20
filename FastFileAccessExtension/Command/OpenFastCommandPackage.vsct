@@ -38,7 +38,7 @@
         </Buttons>
 
         <Bitmaps>
-            <Bitmap guid="guidTherenaSymbols" href="..\Resources\OpenFastCommand.png" usedList="bmpTherena" />
+            <Bitmap guid="guidTherenaSymbols" href="..\Resources\OpenFastCommandPackage.ico" usedList="bmpTherena" />
         </Bitmaps>
     </Commands>
 

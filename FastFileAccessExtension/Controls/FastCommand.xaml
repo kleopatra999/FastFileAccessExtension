@@ -76,13 +76,13 @@
                   KeyDown="lsvActions_KeyDown" FontSize="16">
             <ListView.View>
                 <GridView>
-                    <!--<GridViewColumn Width="30">
+                    <GridViewColumn Width="30">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding Image}" />
+                                <Image Source="pack://application:,,,/FastFileAccessExtension;component/Resources/standard.png" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
-                    </GridViewColumn>-->
+                    </GridViewColumn>
                     <GridViewColumn Width="500" DisplayMemberBinding="{Binding Name}" />
                 </GridView>
             </ListView.View>

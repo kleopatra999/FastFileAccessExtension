@@ -200,6 +200,7 @@
   <ItemGroup>
     <Content Include="Resources\OpenFastCommand.png" />
     <Content Include="Resources\OpenFastCommandPackage.ico" />
+    <Resource Include="Resources\standard.png" />
     <Resource Include="Resources\alert.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

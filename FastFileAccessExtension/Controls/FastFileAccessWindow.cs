@@ -18,6 +18,7 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Imaging;
 
 namespace FastFileAccessExtension.Controls
 {
@@ -29,6 +30,7 @@ namespace FastFileAccessExtension.Controls
         public FastFileAccessWindow() : base(null)
         {
             this.Caption = "Fast File Access";
+            this.BitmapImageMoniker = KnownMonikers.OpenFileDialog;
 
             m_Control = new FastFileAccessWindowControl();
             this.Content = m_Control;

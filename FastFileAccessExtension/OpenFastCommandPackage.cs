@@ -26,6 +26,7 @@ namespace FastFileAccessExtension
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(OpenFastCommandPackage.PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
+    [ProvideToolWindow(typeof(FastFileAccessExtension.Controls.FastFileAccessWindow))]
     public sealed class OpenFastCommandPackage : Package
     {
         public const string PackageGuidString = "5FCB948B-472E-489A-9BC7-F6C1A1E3889D";

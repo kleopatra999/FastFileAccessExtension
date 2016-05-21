@@ -13,19 +13,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-using System;
-using EnvDTE80;
-using System.ComponentModel;
-using System.Reflection;
-using System.Windows.Input;
 using EnvDTE;
+using EnvDTE80;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace FastFileAccessExtension.Controls
 {
-    public partial class FastCommand : System.Windows.Window, INotifyPropertyChanged
+    public partial class FastFileAccessWindowControl : System.Windows.Controls.UserControl, INotifyPropertyChanged
     {
         private DTE2 m_DTE;
         private string m_SearchString = "";
@@ -47,17 +49,14 @@ namespace FastFileAccessExtension.Controls
             }
         }
 
-        public FastCommand(DTE2 dTE)
+        public FastFileAccessWindowControl(DTE2 dTE)
         {
             m_SolutionExplorerFiles = new List<FileInfo>();
 
-            InitializeComponent();
+            this.InitializeComponent();
             this.DataContext = this;
 
             m_DTE = dTE;
-
-            var version = Assembly.GetExecutingAssembly().GetName().Version;
-            this.Title = this.Title + " (v" + version.ToString() + ")";
 
             Initialize();
 
@@ -149,11 +148,11 @@ namespace FastFileAccessExtension.Controls
             if (e.Key == Key.Escape)
             {
                 e.Handled = true;
-                this.Close();
+                //this.Close();
             }
         }
 
-        private void txtSearchBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void txtSearchBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Down && txtSearchBox.IsFocused)
             {
@@ -163,7 +162,7 @@ namespace FastFileAccessExtension.Controls
             }
         }
 
-        private void txtSearchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void txtSearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             m_SearchString = txtSearchBox.Text;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SolutionExplorerFiles"));
@@ -176,7 +175,7 @@ namespace FastFileAccessExtension.Controls
                 e.Handled = true;
 
                 m_DTE.ItemOperations.OpenFile(this.SelectedSolutionExplorerFile.FullName);
-                this.Close();
+                //this.Close();
             }
         }
     }

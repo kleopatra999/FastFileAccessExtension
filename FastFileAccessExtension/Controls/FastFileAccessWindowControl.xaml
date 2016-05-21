@@ -28,8 +28,8 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TextBoxBase}">
-                        <Border  CornerRadius="4" BorderBrush="White" 
-                                 BorderThickness="2" Background="White" 
+                        <Border  CornerRadius="4" BorderBrush="{DynamicResource VsBrush.WindowText}" 
+                                 BorderThickness="2" Background="{DynamicResource VsBrush.Window}" 
                                  SnapsToDevicePixels="True">
                             <ScrollViewer x:Name="PART_ContentHost" Focusable="False"
                                           HorizontalScrollBarVisibility="Hidden" 
@@ -63,10 +63,11 @@
                               -93.848022 0c-26.10199 -26.10199 -26.10199 -67.745972 0 -93.847961z" FillRule="NonZero"/>
                 </Path.Data>
             </Path>
+            
             <TextBox Grid.Column="1" Margin="10"
                      TextChanged="txtSearchBox_TextChanged"
-                     Foreground="{DynamicResource VsBrush.Window}"
-                     Background="{DynamicResource VsBrush.WindowText}"
+                     Foreground="{DynamicResource VsBrush.WindowText}"
+                     Background="{DynamicResource VsBrush.Window}"
                      x:Name="txtSearchBox" PreviewKeyDown="txtSearchBox_PreviewKeyDown" />
         </Grid>
 

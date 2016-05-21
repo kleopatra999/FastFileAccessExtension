@@ -105,11 +105,14 @@ namespace FastFileAccessExtension.Command
         {
             try
             {
-                ToolWindowPane window = this.package.FindToolWindow(typeof(FastFileAccessWindow), 0, true);
+                var window = (FastFileAccessWindow)this.package.FindToolWindow(typeof(FastFileAccessWindow), 0, true);
                 if ((null == window) || (null == window.Frame))
                 {
                     throw new NotSupportedException("Cannot create tool window");
                 }
+
+                var dte = this.ServiceProvider.GetService(typeof(SDTE)) as DTE2;
+                window.Initialize(dte);
 
                 IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
                 Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());

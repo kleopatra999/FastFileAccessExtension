@@ -49,22 +49,20 @@ namespace FastFileAccessExtension.Controls
             }
         }
 
-        public FastFileAccessWindowControl(DTE2 dTE)
+        public FastFileAccessWindowControl()
         {
             m_SolutionExplorerFiles = new List<FileInfo>();
 
             this.InitializeComponent();
             this.DataContext = this;
 
-            m_DTE = dTE;
-
-            Initialize();
-
             this.Loaded += (sender, e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
 
-        private void Initialize()
+        public void Initialize(DTE2 dTE)
         {
+            m_DTE = dTE;
+
             foreach (Project pj in m_DTE.Solution.Projects)
             {
                 foreach (ProjectItem item in pj.ProjectItems)

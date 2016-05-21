@@ -16,18 +16,26 @@
 using System;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
+using EnvDTE80;
 
 namespace FastFileAccessExtension.Controls
 {
     [Guid("75283e39-e7fc-4362-9284-1f49c0bf991d")]
     public class FastFileAccessWindow : ToolWindowPane
     {
+        private FastFileAccessWindowControl m_Control;
+
         public FastFileAccessWindow() : base(null)
         {
             this.Caption = "Fast File Access";
 
-            //var dte = this.ServiceProvider.GetService(typeof(SDTE)) as DTE2;
-            this.Content = new FastFileAccessWindowControl(null);
+            m_Control = new FastFileAccessWindowControl();
+            this.Content = m_Control;
+        }
+
+        public void Initialize(DTE2 dTE)
+        {
+            m_Control.Initialize(dTE);
         }
     }
 }

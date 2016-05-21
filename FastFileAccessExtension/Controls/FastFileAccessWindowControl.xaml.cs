@@ -29,11 +29,25 @@ namespace FastFileAccessExtension.Controls
 {
     public partial class FastFileAccessWindowControl : System.Windows.Controls.UserControl, INotifyPropertyChanged
     {
-        private DTE2 m_DTE;
         private string m_SearchString = "";
         private List<FileInfo> m_SolutionExplorerFiles;
+        private SolutionEvents m_SolutionEvents;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private DTE2 m_DTE;
+        public DTE2 DTE
+        {
+            get
+            {
+                return m_DTE;
+            }
+            set
+            {
+                m_DTE = value;
+                this.Initialize();
+            }
+        }
 
         public FileInfo SelectedSolutionExplorerFile { get; set; }
 
@@ -55,15 +69,26 @@ namespace FastFileAccessExtension.Controls
 
             this.InitializeComponent();
             this.DataContext = this;
-
-            this.Loaded += (sender, e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
 
-        public void Initialize(DTE2 dTE)
+        private void Initialize()
         {
-            m_DTE = dTE;
+            if(m_DTE == null)
+            {
+                return;
+            }
 
-            m_SolutionExplorerFiles.Clear();
+            m_SolutionEvents = m_DTE.Events.SolutionEvents;
+            m_SolutionEvents.Opened += SolutionEvents_Opened;
+            m_SolutionEvents.ProjectAdded += SolutionEvents_ProjectAdded;
+            m_SolutionEvents.ProjectRemoved += SolutionEvents_ProjectRemoved;
+            m_SolutionEvents.QueryCloseSolution += SolutionEvents_QueryCloseSolution;
+
+            this.ParseFiles();
+        }
+
+        private void ParseFiles()
+        {
             foreach (Project pj in m_DTE.Solution.Projects)
             {
                 foreach (ProjectItem item in pj.ProjectItems)
@@ -167,6 +192,26 @@ namespace FastFileAccessExtension.Controls
 
                 m_DTE.ItemOperations.OpenFile(this.SelectedSolutionExplorerFile.FullName);
             }
+        }
+
+        private void SolutionEvents_Opened()
+        {
+            this.ParseFiles();
+        }
+
+        private void SolutionEvents_QueryCloseSolution(ref bool fCancel)
+        {
+            m_SolutionExplorerFiles.Clear();
+        }
+
+        private void SolutionEvents_ProjectRemoved(Project Project)
+        {
+            this.ParseFiles();
+        }
+
+        private void SolutionEvents_ProjectAdded(Project Project)
+        {
+            this.ParseFiles();
         }
     }
 }

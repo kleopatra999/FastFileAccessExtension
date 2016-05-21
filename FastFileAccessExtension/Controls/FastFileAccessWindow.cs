@@ -26,7 +26,6 @@ namespace FastFileAccessExtension.Controls
     public class FastFileAccessWindow : ToolWindowPane
     {
         private FastFileAccessWindowControl m_Control;
-        public WindowEvents WindowEvents { get; private set; }
 
         public FastFileAccessWindow() : base(null)
         {
@@ -39,25 +38,7 @@ namespace FastFileAccessExtension.Controls
         public override void OnToolWindowCreated()
         {
             base.OnToolWindowCreated();
-
-            var dte = GetService(typeof(SDTE)) as DTE2;
-            Events2 events = (Events2)dte.Events;
-
-            m_Control.Initialize(dte);
-
-            this.WindowEvents = events.get_WindowEvents(null);
-            this.WindowEvents.WindowActivated += new _dispWindowEvents_WindowActivatedEventHandler(WindowEvents_WindowActivated);
-        }
-
-        private void WindowEvents_WindowActivated(Window gotFocus, Window lostFocus)
-        {
-            if (gotFocus.Caption != this.Caption)
-            {
-                return;
-            }
-
-            var dte = GetService(typeof(SDTE)) as DTE2;
-            m_Control.Initialize(dte);
+            m_Control.DTE = GetService(typeof(SDTE)) as DTE2;
         }
     }
 }

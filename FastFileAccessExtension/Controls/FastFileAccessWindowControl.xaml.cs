@@ -15,13 +15,13 @@
 //
 using EnvDTE;
 using EnvDTE80;
+using FastFileAccessExtension.Collections;
+using FastFileAccessExtension.Controller;
+using FastFileAccessExtension.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -29,10 +29,7 @@ namespace FastFileAccessExtension.Controls
 {
     public partial class FastFileAccessWindowControl : System.Windows.Controls.UserControl, INotifyPropertyChanged
     {
-        private string m_SearchString = "";
-        private List<FileInfo> m_SolutionExplorerFiles;
         private SolutionEvents m_SolutionEvents;
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private DTE2 m_DTE;
@@ -49,23 +46,13 @@ namespace FastFileAccessExtension.Controls
             }
         }
 
-        public FileInfo SelectedSolutionExplorerFile { get; set; }
+        public SearchableFileInfo SelectedSolutionExplorerFile { get; set; }
 
-        public List<FileInfo> SolutionExplorerFiles
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(m_SearchString))
-                {
-                    return m_SolutionExplorerFiles;
-                }
-                return m_SolutionExplorerFiles.Where(x => x.Name.Contains(m_SearchString)).ToList();
-            }
-        }
+        public ObservableFilterCollection<SearchableFileInfo> SolutionExplorerFiles { get; private set; }
 
         public FastFileAccessWindowControl()
         {
-            m_SolutionExplorerFiles = new List<FileInfo>();
+            this.SolutionExplorerFiles = new ObservableFilterCollection<SearchableFileInfo>();
 
             this.InitializeComponent();
             this.DataContext = this;
@@ -89,6 +76,7 @@ namespace FastFileAccessExtension.Controls
 
         private void ParseFiles()
         {
+            this.SolutionExplorerFiles.Clear();
             foreach (Project pj in m_DTE.Solution.Projects)
             {
                 foreach (ProjectItem item in pj.ProjectItems)
@@ -121,7 +109,7 @@ namespace FastFileAccessExtension.Controls
                 var info = new FileInfo(fullPath);
                 if (info.Exists)
                 {
-                    m_SolutionExplorerFiles.Add(info);
+                    this.SolutionExplorerFiles.Add(new SearchableFileInfo(info));
                 }
             }
 
@@ -132,7 +120,7 @@ namespace FastFileAccessExtension.Controls
                 {
                     continue;
                 }
-                m_SolutionExplorerFiles.Add(file);
+                this.SolutionExplorerFiles.Add(new SearchableFileInfo(file));
             }
         }
 
@@ -168,7 +156,7 @@ namespace FastFileAccessExtension.Controls
             }
         }
 
-        private void txtSearchBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void txtSearchBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Down && txtSearchBox.IsFocused)
             {
@@ -180,17 +168,17 @@ namespace FastFileAccessExtension.Controls
 
         private void txtSearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            m_SearchString = txtSearchBox.Text;
+            SearchProvider.SearchString = txtSearchBox.Text;
+            this.SolutionExplorerFiles.Refresh();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SolutionExplorerFiles"));
         }
 
         private void lsvActions_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter && this.SelectedSolutionExplorerFile != null)
+            if (e.Key == Key.Enter)
             {
                 e.Handled = true;
-
-                m_DTE.ItemOperations.OpenFile(this.SelectedSolutionExplorerFile.FullName);
+                m_DTE.ItemOperations.OpenFile(this.SelectedSolutionExplorerFile.Info.FullName);
             }
         }
 
@@ -201,7 +189,7 @@ namespace FastFileAccessExtension.Controls
 
         private void SolutionEvents_QueryCloseSolution(ref bool fCancel)
         {
-            m_SolutionExplorerFiles.Clear();
+            this.SolutionExplorerFiles.Clear();
         }
 
         private void SolutionEvents_ProjectRemoved(Project Project)

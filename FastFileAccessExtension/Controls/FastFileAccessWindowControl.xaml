@@ -85,7 +85,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="500" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Width="500" DisplayMemberBinding="{Binding Info.Name}" />
                 </GridView>
             </ListView.View>
         </ListView>

@@ -17,7 +17,6 @@ using System;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 using EnvDTE80;
-using EnvDTE;
 using Microsoft.VisualStudio.Shell.Interop;
 
 namespace FastFileAccessExtension.Controls

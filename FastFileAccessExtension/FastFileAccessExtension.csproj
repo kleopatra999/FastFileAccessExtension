@@ -51,7 +51,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Collections\ISearchable.cs" />
+    <Compile Include="Collections\ObservableCollection.cs" />
+    <Compile Include="Collections\ObservableFilterCollection.cs" />
+    <Compile Include="Collections\ObservableFilterEnumerator.cs" />
     <Compile Include="Command\OpenFastCommand.cs" />
+    <Compile Include="Controller\SearchProvider.cs" />
     <Compile Include="Controls\ExceptionMessageBox.xaml.cs">
       <DependentUpon>ExceptionMessageBox.xaml</DependentUpon>
     </Compile>
@@ -59,6 +64,7 @@
     <Compile Include="Controls\FastFileAccessWindowControl.xaml.cs">
       <DependentUpon>FastFileAccessWindowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\SearchableFileInfo.cs" />
     <Compile Include="OpenFastCommandPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

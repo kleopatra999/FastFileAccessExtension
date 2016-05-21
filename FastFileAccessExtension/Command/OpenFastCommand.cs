@@ -18,7 +18,6 @@ using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using FastFileAccessExtension.Controls;
-using EnvDTE80;
 
 namespace FastFileAccessExtension.Command
 {

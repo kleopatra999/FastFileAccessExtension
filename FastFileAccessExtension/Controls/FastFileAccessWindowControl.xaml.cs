@@ -30,6 +30,8 @@ namespace FastFileAccessExtension.Controls
     public partial class FastFileAccessWindowControl : System.Windows.Controls.UserControl, INotifyPropertyChanged
     {
         private SolutionEvents m_SolutionEvents;
+        private ProjectItemsEvents m_ProjectItemsEvents;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private DTE2 m_DTE;
@@ -70,6 +72,10 @@ namespace FastFileAccessExtension.Controls
             m_SolutionEvents.ProjectAdded += SolutionEvents_ProjectAdded;
             m_SolutionEvents.ProjectRemoved += SolutionEvents_ProjectRemoved;
             m_SolutionEvents.QueryCloseSolution += SolutionEvents_QueryCloseSolution;
+
+            m_ProjectItemsEvents = m_DTE.Events.MiscFilesEvents;
+            m_ProjectItemsEvents.ItemAdded += ProjectItemsEvents_ItemAdded;
+            m_ProjectItemsEvents.ItemRemoved += ProjectItemsEvents_ItemRemoved;
 
             this.ParseFiles();
         }
@@ -198,6 +204,16 @@ namespace FastFileAccessExtension.Controls
         }
 
         private void SolutionEvents_ProjectAdded(Project Project)
+        {
+            this.ParseFiles();
+        }
+
+        private void ProjectItemsEvents_ItemRemoved(ProjectItem ProjectItem)
+        {
+            this.ParseFiles();
+        }
+
+        private void ProjectItemsEvents_ItemAdded(ProjectItem ProjectItem)
         {
             this.ParseFiles();
         }

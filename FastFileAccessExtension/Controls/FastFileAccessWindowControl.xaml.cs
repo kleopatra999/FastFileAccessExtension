@@ -30,6 +30,7 @@ namespace FastFileAccessExtension.Controls
     public partial class FastFileAccessWindowControl : System.Windows.Controls.UserControl, INotifyPropertyChanged
     {
         private SolutionEvents m_SolutionEvents;
+        private DocumentEvents m_DocumentEvents;
         private ProjectItemsEvents m_ProjectItemsEvents;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -76,6 +77,9 @@ namespace FastFileAccessExtension.Controls
             m_ProjectItemsEvents = m_DTE.Events.MiscFilesEvents;
             m_ProjectItemsEvents.ItemAdded += ProjectItemsEvents_ItemAdded;
             m_ProjectItemsEvents.ItemRemoved += ProjectItemsEvents_ItemRemoved;
+
+            m_DocumentEvents = m_DTE.Events.DocumentEvents;
+            m_DocumentEvents.DocumentSaved += DocumentEvents_DocumentSaved;
 
             this.ParseFiles();
         }
@@ -184,6 +188,7 @@ namespace FastFileAccessExtension.Controls
             if (e.Key == Key.Enter)
             {
                 e.Handled = true;
+                txtSearchBox.Text = String.Empty;
                 m_DTE.ItemOperations.OpenFile(this.SelectedSolutionExplorerFile.Info.FullName);
             }
         }
@@ -214,6 +219,11 @@ namespace FastFileAccessExtension.Controls
         }
 
         private void ProjectItemsEvents_ItemAdded(ProjectItem ProjectItem)
+        {
+            this.ParseFiles();
+        }
+
+        private void DocumentEvents_DocumentSaved(Document Document)
         {
             this.ParseFiles();
         }

@@ -31,7 +31,8 @@
                         <Border  CornerRadius="4" BorderBrush="{DynamicResource VsBrush.WindowText}" 
                                  BorderThickness="2" Background="{DynamicResource VsBrush.Window}" 
                                  SnapsToDevicePixels="True">
-                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False"
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                          Focusable="False" Margin="2,1,2,1"
                                           HorizontalScrollBarVisibility="Hidden" 
                                           VerticalScrollBarVisibility="Hidden" />
                         </Border>
@@ -64,7 +65,7 @@
                 </Path.Data>
             </Path>
             
-            <TextBox Grid.Column="1" Margin="10"
+            <TextBox Grid.Column="1" Margin="0,8,10,8"
                      TextChanged="txtSearchBox_TextChanged"
                      Foreground="{DynamicResource VsBrush.WindowText}"
                      Background="{DynamicResource VsBrush.Window}"
@@ -85,7 +86,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="500" DisplayMemberBinding="{Binding Info.Name}" />
+                    <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Info.Name}" />
                 </GridView>
             </ListView.View>
         </ListView>

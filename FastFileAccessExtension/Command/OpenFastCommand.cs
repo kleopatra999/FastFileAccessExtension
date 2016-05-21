@@ -111,9 +111,6 @@ namespace FastFileAccessExtension.Command
                     throw new NotSupportedException("Cannot create tool window");
                 }
 
-                var dte = this.ServiceProvider.GetService(typeof(SDTE)) as DTE2;
-                window.Initialize(dte);
-
                 IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
                 Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
             }

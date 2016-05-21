@@ -43,9 +43,9 @@ namespace FastFileAccessExtension.Controls
             {
                 if (string.IsNullOrWhiteSpace(m_SearchString))
                 {
-                    return this.m_SolutionExplorerFiles;
+                    return m_SolutionExplorerFiles;
                 }
-                return this.m_SolutionExplorerFiles.Where(x => x.Name.Contains(m_SearchString)).ToList();
+                return m_SolutionExplorerFiles.Where(x => x.Name.Contains(m_SearchString)).ToList();
             }
         }
 
@@ -63,6 +63,7 @@ namespace FastFileAccessExtension.Controls
         {
             m_DTE = dTE;
 
+            m_SolutionExplorerFiles.Clear();
             foreach (Project pj in m_DTE.Solution.Projects)
             {
                 foreach (ProjectItem item in pj.ProjectItems)
@@ -71,6 +72,7 @@ namespace FastFileAccessExtension.Controls
                     GetProjectItems(item);
                 }
             }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SolutionExplorerFiles"));
         }
 
         private string FullPathFromItem(ProjectItem item)
@@ -141,15 +143,6 @@ namespace FastFileAccessExtension.Controls
             }
         }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape)
-            {
-                e.Handled = true;
-                //this.Close();
-            }
-        }
-
         private void txtSearchBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Down && txtSearchBox.IsFocused)
@@ -173,7 +166,6 @@ namespace FastFileAccessExtension.Controls
                 e.Handled = true;
 
                 m_DTE.ItemOperations.OpenFile(this.SelectedSolutionExplorerFile.FullName);
-                //this.Close();
             }
         }
     }

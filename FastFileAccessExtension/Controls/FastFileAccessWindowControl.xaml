@@ -45,13 +45,13 @@
     </UserControl.Resources>
 
     <DockPanel>
-        <Grid DockPanel.Dock="Top" Height="50" Background="#2C3D5B">
+        <Grid DockPanel.Dock="Top" Height="40" Background="{DynamicResource VsBrush.Window}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="40" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Path Fill="White" Stretch="Fill" Margin="10">
+            <Path Fill="{DynamicResource VsBrush.WindowText}" Stretch="Fill" Margin="10">
                 <Path.Data>
                     <PathGeometry Figures="m37.938999 39.085999c-43.272999 43.272003 -43.378999 114.158997 
                               -0.105988 157.432007c36.662991 36.663025 93.201992 42.25 135.920986 16.765991l76.343994 
@@ -63,14 +63,18 @@
                               -93.848022 0c-26.10199 -26.10199 -26.10199 -67.745972 0 -93.847961z" FillRule="NonZero"/>
                 </Path.Data>
             </Path>
-            <TextBox Grid.Column="1" Margin="10" Background="White" FontSize="16"
+            <TextBox Grid.Column="1" Margin="10"
                      TextChanged="txtSearchBox_TextChanged"
+                     Foreground="{DynamicResource VsBrush.Window}"
+                     Background="{DynamicResource VsBrush.WindowText}"
                      x:Name="txtSearchBox" PreviewKeyDown="txtSearchBox_PreviewKeyDown" />
         </Grid>
 
-        <ListView ItemsSource="{Binding SolutionExplorerFiles}" x:Name="lsvActions"
+        <ListView ItemsSource="{Binding SolutionExplorerFiles}"
                   SelectedItem="{Binding SelectedSolutionExplorerFile}"
-                  KeyDown="lsvActions_KeyDown" FontSize="16">
+                  Background="{DynamicResource VsBrush.Window}"
+                  Foreground="{DynamicResource VsBrush.WindowText}"
+                  x:Name="lsvActions" KeyDown="lsvActions_KeyDown">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="30">

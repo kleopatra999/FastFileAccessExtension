@@ -168,10 +168,12 @@ namespace FastFileAccessExtension.Controls
 
         private void txtSearchBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Down && txtSearchBox.IsFocused)
+            if (e.Key == Key.Down)
             {
-                lsvActions.Focus();
                 lsvActions.SelectedIndex = 0;
+                ListViewItem item = lsvActions.ItemContainerGenerator.ContainerFromIndex(0) as ListViewItem;
+                item.Focus();
+
                 e.Handled = true;
             }
         }
@@ -188,8 +190,13 @@ namespace FastFileAccessExtension.Controls
             if (e.Key == Key.Enter)
             {
                 e.Handled = true;
-                txtSearchBox.Text = String.Empty;
                 m_DTE.ItemOperations.OpenFile(this.SelectedSolutionExplorerFile.Info.FullName);
+            }
+            else if(e.Key == Key.Up && lsvActions.SelectedIndex == 0)
+            {
+                lsvActions.SelectedItem = null;
+                txtSearchBox.Focus();
+                e.Handled = true;
             }
         }
 
@@ -226,6 +233,15 @@ namespace FastFileAccessExtension.Controls
         private void DocumentEvents_DocumentSaved(Document Document)
         {
             this.ParseFiles();
+        }
+
+        private void lsvActions_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(SelectedSolutionExplorerFile == null)
+            {
+                return;
+            }
+            m_DTE.ItemOperations.OpenFile(this.SelectedSolutionExplorerFile.Info.FullName);
         }
     }
 }

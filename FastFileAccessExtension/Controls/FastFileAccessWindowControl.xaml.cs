@@ -91,8 +91,8 @@ namespace FastFileAccessExtension.Controls
             {
                 foreach (ProjectItem item in pj.ProjectItems)
                 {
-                    TasksFromProject(item);
-                    GetProjectItems(item);
+                    TasksFromProject(item, pj);
+                    GetProjectItems(item, pj);
                 }
             }
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SolutionExplorerFiles"));
@@ -111,7 +111,7 @@ namespace FastFileAccessExtension.Controls
             }
         }
 
-        private void TasksFromProject(ProjectItem item)
+        private void TasksFromProject(ProjectItem item, Project project)
         {
             var fullPath = FullPathFromItem(item);
             if (string.IsNullOrWhiteSpace(fullPath) == false)
@@ -119,7 +119,7 @@ namespace FastFileAccessExtension.Controls
                 var info = new FileInfo(fullPath);
                 if (info.Exists)
                 {
-                    this.SolutionExplorerFiles.Add(new SearchableFileInfo(info));
+                    this.SolutionExplorerFiles.Add(new SearchableFileInfo(info, project));
                 }
             }
 
@@ -130,7 +130,7 @@ namespace FastFileAccessExtension.Controls
                 {
                     continue;
                 }
-                this.SolutionExplorerFiles.Add(new SearchableFileInfo(file));
+                this.SolutionExplorerFiles.Add(new SearchableFileInfo(file, project));
             }
         }
 
@@ -152,7 +152,7 @@ namespace FastFileAccessExtension.Controls
             return list;
         }
 
-        private void GetProjectItems(ProjectItem item)
+        private void GetProjectItems(ProjectItem item, Project project)
         {
             if (item == null || item.ProjectItems == null)
             {
@@ -161,8 +161,8 @@ namespace FastFileAccessExtension.Controls
 
             foreach (ProjectItem subitem in item.ProjectItems)
             {
-                TasksFromProject(subitem);
-                GetProjectItems(subitem);
+                TasksFromProject(subitem, project);
+                GetProjectItems(subitem, project);
             }
         }
 

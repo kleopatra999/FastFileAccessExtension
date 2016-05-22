@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+using EnvDTE;
 using FastFileAccessExtension.Collections;
 using System.ComponentModel;
 using System.IO;
@@ -37,19 +38,43 @@ namespace FastFileAccessExtension.Models
             }
         }
 
+        private Project m_Project;
+        public Project Project
+        {
+            get
+            {
+                return m_Project;
+            }
+            set
+            {
+                m_Project = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Project"));
+            }
+        }
+
+
+        public string SearchString
+        {
+            get
+            {
+                return this.Info.Name + " (" + this.Project.Name + ")";
+            }
+        }
+
         public SearchableFileInfo()
         {
 
         }
 
-        public SearchableFileInfo(FileInfo infoOfFile)
+        public SearchableFileInfo(FileInfo infoOfFile, Project project)
         {
             this.Info = infoOfFile;
+            this.Project = project;
         }
 
         public string GetSearchString()
         {
-            return this.Info.Name;
+            return this.SearchString;
         }
     }
 }

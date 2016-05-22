@@ -86,7 +86,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Info.Name}" />
+                    <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding SearchString}" />
                 </GridView>
             </ListView.View>
         </ListView>

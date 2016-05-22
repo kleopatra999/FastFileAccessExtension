@@ -4,7 +4,7 @@ Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.m
 
 ---------------------------------------
 
-Fast file access within big projects or solution.
+Fast file access within big projects or solutions.
 
 Search in big solutions with several project and files for one specific file can be annoying.
 To make this easier I wrote this extension. With this extension you can search with several 

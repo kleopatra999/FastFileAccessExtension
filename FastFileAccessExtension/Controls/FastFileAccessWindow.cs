@@ -39,6 +39,7 @@ namespace FastFileAccessExtension.Controls
         public override void OnToolWindowCreated()
         {
             base.OnToolWindowCreated();
+            m_Control.Package = this.Package as Package;
             m_Control.DTE = GetService(typeof(SDTE)) as DTE2;
         }
     }

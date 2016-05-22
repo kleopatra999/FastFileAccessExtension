@@ -15,6 +15,8 @@
 //
 using EnvDTE;
 using FastFileAccessExtension.Collections;
+using FastFileAccessExtension.Settings;
+using Microsoft.VisualStudio.Shell;
 using System.ComponentModel;
 using System.IO;
 
@@ -22,6 +24,7 @@ namespace FastFileAccessExtension.Models
 {
     public class SearchableFileInfo : ISearchable, INotifyPropertyChanged
     {
+        private Package m_Package;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private FileInfo m_Info;
@@ -57,7 +60,7 @@ namespace FastFileAccessExtension.Models
         {
             get
             {
-                return this.Info.Name + " (" + this.Project.Name + ")";
+                return GetSearchString();
             }
         }
 
@@ -66,15 +69,35 @@ namespace FastFileAccessExtension.Models
 
         }
 
-        public SearchableFileInfo(FileInfo infoOfFile, Project project)
+        public SearchableFileInfo(FileInfo infoOfFile, Project project, Package package)
         {
             this.Info = infoOfFile;
             this.Project = project;
+            m_Package = package;
         }
 
         public string GetSearchString()
         {
-            return this.SearchString;
+            var page = (OptionPageGridDisplay)m_Package.GetDialogPage(typeof(OptionPageGridDisplay));
+            if (page != null)
+            {
+                string path = string.Empty;
+                if(page.FullFileName)
+                {
+                    path = this.Info.FullName;
+                }
+                else
+                {
+                    path = this.Info.Name;
+                }
+
+                if (page.AddProjectName)
+                {
+                    path += " (" + this.Project.Name + ")";
+                }
+                return path;
+            }
+            return this.Info.Name;
         }
     }
 }

@@ -18,6 +18,7 @@ using EnvDTE80;
 using FastFileAccessExtension.Collections;
 using FastFileAccessExtension.Controller;
 using FastFileAccessExtension.Models;
+using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,6 +30,8 @@ namespace FastFileAccessExtension.Controls
 {
     public partial class FastFileAccessWindowControl : System.Windows.Controls.UserControl, INotifyPropertyChanged
     {
+        public Package Package { get; set; }
+
         private SolutionEvents m_SolutionEvents;
         private DocumentEvents m_DocumentEvents;
         private ProjectItemsEvents m_ProjectItemsEvents;
@@ -59,6 +62,7 @@ namespace FastFileAccessExtension.Controls
 
             this.InitializeComponent();
             this.DataContext = this;
+
         }
 
         private void Initialize()
@@ -119,7 +123,7 @@ namespace FastFileAccessExtension.Controls
                 var info = new FileInfo(fullPath);
                 if (info.Exists)
                 {
-                    this.SolutionExplorerFiles.Add(new SearchableFileInfo(info, project));
+                    this.SolutionExplorerFiles.Add(new SearchableFileInfo(info, project, this.Package));
                 }
             }
 
@@ -130,7 +134,7 @@ namespace FastFileAccessExtension.Controls
                 {
                     continue;
                 }
-                this.SolutionExplorerFiles.Add(new SearchableFileInfo(file, project));
+                this.SolutionExplorerFiles.Add(new SearchableFileInfo(file, project, this.Package));
             }
         }
 

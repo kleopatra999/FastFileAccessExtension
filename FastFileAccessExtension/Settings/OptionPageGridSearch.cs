@@ -63,7 +63,7 @@ namespace FastFileAccessExtension.Settings
         private bool m_StartsWith = true;
         [Category("Fast File Access")]
         [DisplayName("3. Starts with")]
-        [Description("The file name has to start with the given text")]
+        [Description("The file name has to start with the given text (Only for \"Contains\" and \"Regex\")")]
         public bool StartsWith
         {
             get

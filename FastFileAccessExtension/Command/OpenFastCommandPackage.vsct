@@ -35,6 +35,13 @@
                     <ButtonText>Open fast file access</ButtonText>
                 </Strings>
             </Button>
+            <Button guid="guidTherenaEditorMenu" id="cmdidOpenFastCommandUICommand" priority="0x0100" type="Button">
+                <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
+                <Icon guid="guidTherenaSymbols" id="bmpTherena" />
+                <Strings>
+                    <ButtonText>Fast file access</ButtonText>
+                </Strings>
+            </Button>
         </Buttons>
 
         <Bitmaps>

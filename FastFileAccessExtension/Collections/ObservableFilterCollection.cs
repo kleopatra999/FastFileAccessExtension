@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+using Microsoft.VisualStudio.Shell;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -21,14 +22,21 @@ namespace FastFileAccessExtension.Collections
     public class ObservableFilterCollection<T> : ObservableCollection<T>, IEnumerable<T>
         where T : ISearchable, INotifyPropertyChanged
     {
+        private Package m_Package;
+
+        public ObservableFilterCollection(Package package)
+        {
+            m_Package = package;
+        }
+
         new public IEnumerator<T> GetEnumerator()
         {
-            return new ObservableFilterEnumerator<T>(base.GetEnumerator(), base.m_List);
+            return new ObservableFilterEnumerator<T>(base.GetEnumerator(), m_Package, base.m_List);
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return new ObservableFilterEnumerator<T>(base.GetEnumerator(), base.m_List);
+            return new ObservableFilterEnumerator<T>(base.GetEnumerator(), m_Package, base.m_List);
         }
     }
 }

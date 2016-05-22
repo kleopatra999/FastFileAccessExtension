@@ -30,7 +30,19 @@ namespace FastFileAccessExtension.Controls
 {
     public partial class FastFileAccessWindowControl : System.Windows.Controls.UserControl, INotifyPropertyChanged
     {
-        public Package Package { get; set; }
+        private Package m_Package;
+        public Package Package
+        {
+            get
+            {
+                return m_Package;
+            }
+            set
+            {
+                m_Package = value;
+                this.SolutionExplorerFiles = new ObservableFilterCollection<SearchableFileInfo>(m_Package);
+            }
+        }
 
         private SolutionEvents m_SolutionEvents;
         private DocumentEvents m_DocumentEvents;
@@ -58,11 +70,8 @@ namespace FastFileAccessExtension.Controls
 
         public FastFileAccessWindowControl()
         {
-            this.SolutionExplorerFiles = new ObservableFilterCollection<SearchableFileInfo>();
-
             this.InitializeComponent();
             this.DataContext = this;
-
         }
 
         private void Initialize()
@@ -90,6 +99,11 @@ namespace FastFileAccessExtension.Controls
 
         private void ParseFiles()
         {
+            if(SolutionExplorerFiles == null)
+            {
+                return;
+            }
+
             this.SolutionExplorerFiles.Clear();
             foreach (Project pj in m_DTE.Solution.Projects)
             {

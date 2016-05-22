@@ -14,6 +14,7 @@
 // limitations under the License.
 //
 using FastFileAccessExtension.Controller;
+using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -25,11 +26,13 @@ namespace FastFileAccessExtension.Collections
     {
         private IEnumerator<T> m_Enumerable;
         private object m_Lock;
+        private Package m_Package;
 
-        public ObservableFilterEnumerator(IEnumerator<T> enumerable, object lockObj)
+        public ObservableFilterEnumerator(IEnumerator<T> enumerable, Package package, object lockObj)
         {
             m_Enumerable = enumerable;
             m_Lock = lockObj;
+            m_Package = package;
             Monitor.Enter(m_Lock);
         }
 
@@ -67,11 +70,13 @@ namespace FastFileAccessExtension.Collections
                 return m_Enumerable.MoveNext();
             }
 
-            var reg = new Regex(SearchProvider.SearchString, RegexOptions.IgnoreCase);
-
             while (m_Enumerable.MoveNext())
             {
-                if (reg.IsMatch(((ISearchable)m_Enumerable.Current).GetSearchString()))
+                var result = SearchProvider.IsMatch(
+                    ((ISearchable)m_Enumerable.Current).GetSearchString(), 
+                    m_Package);
+
+                if (result)
                 {
                     return true;
                 }

@@ -26,10 +26,21 @@ namespace FastFileAccessExtension.Settings
             Regex
         }
 
+        private SearchType m_TypeOfSearch = SearchType.Regex;
         [Category("Fast File Access")]
         [DisplayName("1. Search type")]
         [Description("Type of search of the search box")]
-        public SearchType TypeOfSearch { get; set; }
+        public SearchType TypeOfSearch
+        {
+            get
+            {
+                return m_TypeOfSearch;
+            }
+            set
+            {
+                m_TypeOfSearch = value;
+            }
+        }
 
         private bool m_IgnoreCase = true;
         [Category("Fast File Access")]
@@ -47,9 +58,20 @@ namespace FastFileAccessExtension.Settings
             }
         }
 
+        private bool m_StartsWith = true;
         [Category("Fast File Access")]
         [DisplayName("3. Starts with")]
         [Description("The file name has to start with the given text")]
-        public bool StartsWith { get; set; }
+        public bool StartsWith
+        {
+            get
+            {
+                return m_StartsWith;
+            }
+            set
+            {
+                m_StartsWith = value;
+            }
+        }
     }
 }

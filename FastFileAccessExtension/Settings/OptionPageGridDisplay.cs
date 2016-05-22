@@ -20,14 +20,36 @@ namespace FastFileAccessExtension.Settings
 {
     internal sealed class OptionPageGridDisplay : DialogPage
     {
+        private bool m_AddProjectName = false;
         [Category("Fast File Access")]
         [DisplayName("1. Add project name")]
         [Description("Add the project name to the files")]
-        public bool AddProjectName { get; set; }
+        public bool AddProjectName
+        {
+            get
+            {
+                return m_AddProjectName;
+            }
+            set
+            {
+                m_AddProjectName = value;
+            }
+        }
 
+        private bool m_FullFileName = false;
         [Category("Fast File Access")]
         [DisplayName("2. Show full file paths")]
         [Description("Show the full paths instead of the names")]
-        public bool FullFileName { get; set; }
+        public bool FullFileName
+        {
+            get
+            {
+                return m_FullFileName;
+            }
+            set
+            {
+                m_FullFileName = value;
+            }
+        }
     }
 }

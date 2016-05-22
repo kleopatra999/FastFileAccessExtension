@@ -13,11 +13,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+using Microsoft.VisualStudio.Shell;
+using System.ComponentModel;
 
-namespace FastFileAccessExtension.Controller
+namespace FastFileAccessExtension.Settings
 {
-    internal static class SearchProvider
+    internal sealed class OptionPageGridDisplay : DialogPage
     {
-        public static string SearchString { get; set; }
+        [Category("Fast File Access")]
+        [DisplayName("1. Add project name")]
+        [Description("Add the project name to the files")]
+        public bool AddProjectName { get; set; }
+
+        [Category("Fast File Access")]
+        [DisplayName("2. Show full file paths")]
+        [Description("Show the full paths instead of the names")]
+        public bool FullFileName { get; set; }
     }
 }

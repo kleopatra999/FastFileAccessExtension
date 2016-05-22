@@ -18,6 +18,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 using FastFileAccessExtension.Command;
+using FastFileAccessExtension.Settings;
 
 namespace FastFileAccessExtension
 {
@@ -26,7 +27,9 @@ namespace FastFileAccessExtension
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(OpenFastCommandPackage.PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
-    [ProvideToolWindow(typeof(FastFileAccessExtension.Controls.FastFileAccessWindow))]
+    [ProvideToolWindow(typeof(Controls.FastFileAccessWindow))]
+    [ProvideOptionPage(typeof(OptionPageGridSearch), "Fast File Access", "1. Search", 0, 0, true)]
+    [ProvideOptionPage(typeof(OptionPageGridDisplay), "Fast File Access", "2. Display", 0, 0, true)]
     public sealed class OpenFastCommandPackage : Package
     {
         public const string PackageGuidString = "5FCB948B-472E-489A-9BC7-F6C1A1E3889D";

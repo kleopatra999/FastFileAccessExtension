@@ -67,6 +67,12 @@
     <Compile Include="Models\SearchableFileInfo.cs" />
     <Compile Include="OpenFastCommandPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\OptionPageGridDisplay.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Settings\OptionPageGridSearch.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\LICENSE">

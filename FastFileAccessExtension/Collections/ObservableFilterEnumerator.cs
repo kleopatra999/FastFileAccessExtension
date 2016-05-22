@@ -16,7 +16,6 @@
 using FastFileAccessExtension.Controller;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -68,7 +67,7 @@ namespace FastFileAccessExtension.Collections
                 return m_Enumerable.MoveNext();
             }
 
-            var reg = new Regex(SearchProvider.SearchString);
+            var reg = new Regex(SearchProvider.SearchString, RegexOptions.IgnoreCase);
 
             while (m_Enumerable.MoveNext())
             {

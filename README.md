@@ -12,18 +12,19 @@ types of searches within all files which are part of the loaded soltion and proj
 <br/><br/>
 The extension can be used with the keyboard. With the keys Ctrl+R,D you can open the search
 and start typing. With the Up and Down keys you can change from the search box to the listview.
-<br/><br/>
+<br/>
+
 | Command                        | Keybinding     |
-|:------------------------------:|:--------------:|
+|:------------------------------ |:-------------- |
 | Open search                    | Ctrl+R,D       |
 | Cahnge from search to listview | Up or Down key |
 | Open selected file             | Return Key     |
-<br/>
+
 Current search or string matching types:<br/>
-* Contain string<br/>
-* Regex matching<br/>
-* Levenshtein distance<br/>
-* Word base levenshtein distance
+- Contain string<br/>
+- Regex matching<br/>
+- Levenshtein distance<br/>
+- Word base levenshtein distance
 
 See the [changelog](CHANGELOG.md) for changes and roadmap.
 

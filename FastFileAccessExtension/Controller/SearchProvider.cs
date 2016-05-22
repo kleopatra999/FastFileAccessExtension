@@ -99,24 +99,61 @@ namespace FastFileAccessExtension.Controller
             return true;
         }
 
+        public static int LevenshteinDistance(string text, string text2, Package package)
+        {
+            var page = (OptionPageGridSearch)package.GetDialogPage(typeof(OptionPageGridSearch));
+            if (page != null)
+            {
+                string textCase = text;
+                string textCase2 = text2;
+
+                if (page.IgnoreCase)
+                {
+                    textCase = textCase.ToLower();
+                    textCase2 = textCase2.ToLower();
+                }
+                return LevenshteinDistanceCompute(textCase, textCase2);
+            }
+            return 0;
+        }
+
         private static bool LevenshteinSearch(string text, Package package)
         {
             var page = (OptionPageGridSearch)package.GetDialogPage(typeof(OptionPageGridSearch));
             if (page != null)
             {
-                string search = SearchString;
-                string textCase = text;
-
-                if (page.IgnoreCase)
-                {
-                    search = search.ToLower();
-                    textCase = textCase.ToLower();
-                }
-
-                int distance = LevenshteinDistanceCompute(search, textCase);
+                int distance = LevenshteinDistance(SearchString, text, package);
                 return distance < page.MaxLevenshteinDistance;
             }
             return true;
+        }
+
+        public static int WordBasedLevenshteinDistance(string text, string text2, Package package)
+        {
+            var page = (OptionPageGridSearch)package.GetDialogPage(typeof(OptionPageGridSearch));
+            if (page != null)
+            {
+                string textCase = text;
+                string textCase2 = text2;
+
+                if (page.IgnoreCase)
+                {
+                    textCase = textCase.ToLower();
+                    textCase2 = textCase2.ToLower();
+                }
+
+                int minDistance = int.MaxValue;
+                foreach (var word in textCase.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    int distance = LevenshteinDistanceCompute(textCase2, word.Trim());
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                    }
+                }
+                return minDistance;
+            }
+            return 0;
         }
 
         private static bool WordBasedLevenshteinSearch(string text, Package package)
@@ -124,34 +161,18 @@ namespace FastFileAccessExtension.Controller
             var page = (OptionPageGridSearch)package.GetDialogPage(typeof(OptionPageGridSearch));
             if (page != null)
             {
-                string search = SearchString;
-                string textCase = text;
-
-                if (page.IgnoreCase)
-                {
-                    search = search.ToLower();
-                    textCase = textCase.ToLower();
-                }
-
-                foreach(var word in textCase.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    int distance = LevenshteinDistanceCompute(search, word.Trim());
-                    if(distance < page.MaxLevenshteinDistance)
-                    {
-                        return true;
-                    }
-                }
-                return false;
+                int distance = WordBasedLevenshteinDistance(SearchString, text, package);
+                return distance < page.MaxLevenshteinDistance;
             }
             return true;
         }
 
-        public static int LevenshteinDistanceCompute(string string1, string string2)
+        private static int LevenshteinDistanceCompute(string string1, string string2)
         {
             int n = string1.Length;
             int m = string2.Length;
             int[,] distance = new int[n + 1, m + 1];
-            
+
             if (n == 0)
             {
                 return m;
@@ -161,10 +182,10 @@ namespace FastFileAccessExtension.Controller
             {
                 return n;
             }
-            
+
             for (int i = 0; i <= n; distance[i, 0] = i++) { }
             for (int j = 0; j <= m; distance[0, j] = j++) { }
-            
+
             for (int i = 1; i <= n; i++)
             {
                 for (int j = 1; j <= m; j++)

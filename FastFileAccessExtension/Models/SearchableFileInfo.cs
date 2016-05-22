@@ -15,6 +15,7 @@
 //
 using EnvDTE;
 using FastFileAccessExtension.Collections;
+using FastFileAccessExtension.Controller;
 using FastFileAccessExtension.Settings;
 using Microsoft.VisualStudio.Shell;
 using System.ComponentModel;
@@ -64,6 +65,14 @@ namespace FastFileAccessExtension.Models
             }
         }
 
+        public int Position
+        {
+            get
+            {
+                return GetPosition();
+            }
+        }
+
         public SearchableFileInfo()
         {
 
@@ -74,6 +83,23 @@ namespace FastFileAccessExtension.Models
             this.Info = infoOfFile;
             this.Project = project;
             m_Package = package;
+        }
+
+        public int GetPosition()
+        {
+            var page = (OptionPageGridSearch)m_Package.GetDialogPage(typeof(OptionPageGridSearch));
+            if (page != null)
+            {
+                if(page.TypeOfSearch == OptionPageGridSearch.SearchType.Levenshtein)
+                {
+                    return SearchProvider.LevenshteinDistance(SearchProvider.SearchString, SearchString, m_Package);
+                }
+                else if (page.TypeOfSearch == OptionPageGridSearch.SearchType.WordBasedLevenshtein)
+                {
+                    return SearchProvider.WordBasedLevenshteinDistance(SearchProvider.SearchString, SearchString, m_Package);
+                }
+            }
+            return 0;
         }
 
         public string GetSearchString()

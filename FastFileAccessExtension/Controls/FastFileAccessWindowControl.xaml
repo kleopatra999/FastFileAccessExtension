@@ -116,6 +116,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn Width="0" DisplayMemberBinding="{Binding Position}" />
                     <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding SearchString}" />
                 </GridView>
             </ListView.View>

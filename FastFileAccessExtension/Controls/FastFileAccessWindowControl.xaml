@@ -76,7 +76,8 @@
                   SelectedItem="{Binding SelectedSolutionExplorerFile}"
                   Background="{DynamicResource VsBrush.Window}"
                   Foreground="{DynamicResource VsBrush.WindowText}"
-                  x:Name="lsvActions" KeyDown="lsvActions_KeyDown">
+                  x:Name="lsvActions" 
+                  BorderThickness="0" KeyDown="lsvActions_KeyDown">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="30">

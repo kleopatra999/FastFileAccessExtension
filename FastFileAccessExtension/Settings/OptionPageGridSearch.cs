@@ -76,7 +76,7 @@ namespace FastFileAccessExtension.Settings
             }
         }
 
-        private uint m_MaxLevenshteinDistance = 5;
+        private uint m_MaxLevenshteinDistance = 10;
         [Category("Fast File Access")]
         [DisplayName("4. Max Levenshtein distance")]
         [Description("The maximum of the Levenshtein distance which is still a match")]

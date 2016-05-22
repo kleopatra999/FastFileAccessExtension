@@ -64,6 +64,9 @@
     <Compile Include="Controls\FastFileAccessWindowControl.xaml.cs">
       <DependentUpon>FastFileAccessWindowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SortedListView.xaml.cs">
+      <DependentUpon>SortedListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\SearchableFileInfo.cs" />
     <Compile Include="OpenFastCommandPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,6 +97,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\FastFileAccessWindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SortedListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

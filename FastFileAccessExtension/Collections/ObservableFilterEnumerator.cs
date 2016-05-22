@@ -17,7 +17,6 @@ using FastFileAccessExtension.Controller;
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace FastFileAccessExtension.Collections

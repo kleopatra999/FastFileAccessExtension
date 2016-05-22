@@ -13,7 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-
 using FastFileAccessExtension.Settings;
 using Microsoft.VisualStudio.Shell;
 using System;
@@ -23,7 +22,18 @@ namespace FastFileAccessExtension.Controller
 {
     internal static class SearchProvider
     {
-        public static string SearchString { get; set; }
+        private static string m_SearchString = string.Empty;
+        public static string SearchString
+        {
+            get
+            {
+                return m_SearchString;
+            }
+            set
+            {
+                m_SearchString = value;
+            }
+        }
 
         public static bool IsMatch(string text, Package package)
         {
@@ -122,7 +132,7 @@ namespace FastFileAccessExtension.Controller
             var page = (OptionPageGridSearch)package.GetDialogPage(typeof(OptionPageGridSearch));
             if (page != null)
             {
-                int distance = LevenshteinDistance(SearchString, text, package);
+                int distance = LevenshteinDistance(text, SearchString, package);
                 return distance < page.MaxLevenshteinDistance;
             }
             return true;
@@ -161,7 +171,7 @@ namespace FastFileAccessExtension.Controller
             var page = (OptionPageGridSearch)package.GetDialogPage(typeof(OptionPageGridSearch));
             if (page != null)
             {
-                int distance = WordBasedLevenshteinDistance(SearchString, text, package);
+                int distance = WordBasedLevenshteinDistance(text, SearchString, package);
                 return distance < page.MaxLevenshteinDistance;
             }
             return true;

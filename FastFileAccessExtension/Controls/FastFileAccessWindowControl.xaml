@@ -18,6 +18,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ListView="clr-namespace:FastFileAccessExtension.Controls"
              Background="{DynamicResource VsBrush.ToolWindowBackground}"
              Foreground="{DynamicResource VsBrush.WindowText}"
              mc:Ignorable="d"
@@ -72,14 +73,14 @@
                      x:Name="txtSearchBox" PreviewKeyDown="txtSearchBox_PreviewKeyDown" />
         </Grid>
 
-        <ListView ItemsSource="{Binding SolutionExplorerFiles}"
-                  SelectedItem="{Binding SelectedSolutionExplorerFile}"
-                  Background="{DynamicResource VsBrush.ToolWindowBackground}"
-                  Foreground="{DynamicResource VsBrush.WindowText}"
-                  x:Name="lsvActions" 
-                  MouseDoubleClick="lsvActions_MouseDoubleClick"
-                  BorderThickness="0" KeyDown="lsvActions_KeyDown">
-            <ListView.ItemContainerStyle>
+        <ListView:SortedListView ItemsSource="{Binding SolutionExplorerFiles}"
+                                 SelectedItem="{Binding SelectedSolutionExplorerFile}"
+                                 Background="{DynamicResource VsBrush.ToolWindowBackground}"
+                                 Foreground="{DynamicResource VsBrush.WindowText}"
+                                 x:Name="lsvActions" 
+                                 MouseDoubleClick="lsvActions_MouseDoubleClick"
+                                 BorderThickness="0" KeyDown="lsvActions_KeyDown">
+            <ListView:SortedListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="Height" Value="25" />
                     <Style.Resources>
@@ -105,9 +106,9 @@
                         </MultiTrigger>
                     </Style.Triggers>
                 </Style>
-            </ListView.ItemContainerStyle>
+            </ListView:SortedListView.ItemContainerStyle>
 
-            <ListView.View>
+            <ListView:SortedListView.View>
                 <GridView>
                     <GridViewColumn Width="30">
                         <GridViewColumn.CellTemplate>
@@ -116,10 +117,10 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="0" DisplayMemberBinding="{Binding Position}" />
+                    <GridViewColumn Width="0" Header="Position" DisplayMemberBinding="{Binding Position}" />
                     <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding SearchString}" />
                 </GridView>
-            </ListView.View>
-        </ListView>
+            </ListView:SortedListView.View>
+        </ListView:SortedListView>
     </DockPanel>
 </UserControl>

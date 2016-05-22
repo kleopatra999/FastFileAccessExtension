@@ -72,6 +72,8 @@ namespace FastFileAccessExtension.Controls
         {
             this.InitializeComponent();
             this.DataContext = this;
+
+            lsvActions.DefaultSearchColumn = "Position";
         }
 
         private void Initialize()

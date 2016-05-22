@@ -92,11 +92,11 @@ namespace FastFileAccessExtension.Models
             {
                 if(page.TypeOfSearch == OptionPageGridSearch.SearchType.Levenshtein)
                 {
-                    return SearchProvider.LevenshteinDistance(SearchProvider.SearchString, SearchString, m_Package);
+                    return SearchProvider.LevenshteinDistance(SearchString, SearchProvider.SearchString, m_Package);
                 }
                 else if (page.TypeOfSearch == OptionPageGridSearch.SearchType.WordBasedLevenshtein)
                 {
-                    return SearchProvider.WordBasedLevenshteinDistance(SearchProvider.SearchString, SearchString, m_Package);
+                    return SearchProvider.WordBasedLevenshteinDistance(SearchString, SearchProvider.SearchString, m_Package);
                 }
             }
             return 0;

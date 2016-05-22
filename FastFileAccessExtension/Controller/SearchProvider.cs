@@ -16,6 +16,7 @@
 
 using FastFileAccessExtension.Settings;
 using Microsoft.VisualStudio.Shell;
+using System;
 using System.Text.RegularExpressions;
 
 namespace FastFileAccessExtension.Controller
@@ -29,13 +30,21 @@ namespace FastFileAccessExtension.Controller
             var page = (OptionPageGridSearch)package.GetDialogPage(typeof(OptionPageGridSearch));
             if (page != null)
             {
-                if(page.TypeOfSearch == OptionPageGridSearch.SearchType.Contains)
+                if (page.TypeOfSearch == OptionPageGridSearch.SearchType.Contains)
                 {
                     return ContainsSearch(text, package);
                 }
-                else if(page.TypeOfSearch == OptionPageGridSearch.SearchType.Regex)
+                else if (page.TypeOfSearch == OptionPageGridSearch.SearchType.Regex)
                 {
                     return RegexSearch(text, package);
+                }
+                else if (page.TypeOfSearch == OptionPageGridSearch.SearchType.Levenshtein)
+                {
+                    return LevenshteinSearch(text, package);
+                }
+                else if (page.TypeOfSearch == OptionPageGridSearch.SearchType.WordBasedLevenshtein)
+                {
+                    return WordBasedLevenshteinSearch(text, package);
                 }
             }
             return true;
@@ -49,13 +58,13 @@ namespace FastFileAccessExtension.Controller
                 string search = SearchString;
                 string textCase = text;
 
-                if(page.IgnoreCase)
+                if (page.IgnoreCase)
                 {
                     search = search.ToLower();
                     textCase = textCase.ToLower();
                 }
 
-                if(page.StartsWith)
+                if (page.StartsWith)
                 {
                     return textCase.StartsWith(search);
                 }
@@ -73,7 +82,7 @@ namespace FastFileAccessExtension.Controller
             if (page != null)
             {
                 RegexOptions options = RegexOptions.None;
-                if(page.IgnoreCase)
+                if (page.IgnoreCase)
                 {
                     options |= RegexOptions.IgnoreCase;
                 }
@@ -88,6 +97,85 @@ namespace FastFileAccessExtension.Controller
                 return reg.IsMatch(text);
             }
             return true;
+        }
+
+        private static bool LevenshteinSearch(string text, Package package)
+        {
+            var page = (OptionPageGridSearch)package.GetDialogPage(typeof(OptionPageGridSearch));
+            if (page != null)
+            {
+                string search = SearchString;
+                string textCase = text;
+
+                if (page.IgnoreCase)
+                {
+                    search = search.ToLower();
+                    textCase = textCase.ToLower();
+                }
+
+                int distance = LevenshteinDistanceCompute(search, textCase);
+                return distance < page.MaxLevenshteinDistance;
+            }
+            return true;
+        }
+
+        private static bool WordBasedLevenshteinSearch(string text, Package package)
+        {
+            var page = (OptionPageGridSearch)package.GetDialogPage(typeof(OptionPageGridSearch));
+            if (page != null)
+            {
+                string search = SearchString;
+                string textCase = text;
+
+                if (page.IgnoreCase)
+                {
+                    search = search.ToLower();
+                    textCase = textCase.ToLower();
+                }
+
+                foreach(var word in textCase.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    int distance = LevenshteinDistanceCompute(search, word.Trim());
+                    if(distance < page.MaxLevenshteinDistance)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            return true;
+        }
+
+        public static int LevenshteinDistanceCompute(string string1, string string2)
+        {
+            int n = string1.Length;
+            int m = string2.Length;
+            int[,] distance = new int[n + 1, m + 1];
+            
+            if (n == 0)
+            {
+                return m;
+            }
+
+            if (m == 0)
+            {
+                return n;
+            }
+            
+            for (int i = 0; i <= n; distance[i, 0] = i++) { }
+            for (int j = 0; j <= m; distance[0, j] = j++) { }
+            
+            for (int i = 1; i <= n; i++)
+            {
+                for (int j = 1; j <= m; j++)
+                {
+                    int cost = (string2[j - 1] == string1[i - 1]) ? 0 : 1;
+                    distance[i, j] = Math.Min(
+                        Math.Min(distance[i - 1, j] + 1, distance[i, j - 1] + 1),
+                        distance[i - 1, j - 1] + cost);
+                }
+            }
+            return distance[n, m];
         }
     }
 }

@@ -23,7 +23,9 @@ namespace FastFileAccessExtension.Settings
         public enum SearchType
         {
             Contains,
-            Regex
+            Regex,
+            Levenshtein,
+            WordBasedLevenshtein
         }
 
         private SearchType m_TypeOfSearch = SearchType.Regex;
@@ -71,6 +73,22 @@ namespace FastFileAccessExtension.Settings
             set
             {
                 m_StartsWith = value;
+            }
+        }
+
+        private uint m_MaxLevenshteinDistance = 5;
+        [Category("Fast File Access")]
+        [DisplayName("4. Max Levenshtein distance")]
+        [Description("The maximum of the Levenshtein distance which is still a match")]
+        public uint MaxLevenshteinDistance
+        {
+            get
+            {
+                return m_MaxLevenshteinDistance;
+            }
+            set
+            {
+                m_MaxLevenshteinDistance = value;
             }
         }
     }

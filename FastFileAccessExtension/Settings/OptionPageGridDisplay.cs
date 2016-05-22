@@ -36,19 +36,19 @@ namespace FastFileAccessExtension.Settings
             }
         }
 
-        private bool m_FullFileName = false;
+        private bool m_AddFilePath = false;
         [Category("Fast File Access")]
-        [DisplayName("2. Show full file paths")]
-        [Description("Show the full paths instead of the names")]
-        public bool FullFileName
+        [DisplayName("2. Add file paths")]
+        [Description("Add the full path to the files")]
+        public bool AddFilePath
         {
             get
             {
-                return m_FullFileName;
+                return m_AddFilePath;
             }
             set
             {
-                m_FullFileName = value;
+                m_AddFilePath = value;
             }
         }
     }

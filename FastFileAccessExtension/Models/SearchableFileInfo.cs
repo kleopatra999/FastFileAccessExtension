@@ -81,14 +81,10 @@ namespace FastFileAccessExtension.Models
             var page = (OptionPageGridDisplay)m_Package.GetDialogPage(typeof(OptionPageGridDisplay));
             if (page != null)
             {
-                string path = string.Empty;
-                if(page.FullFileName)
+                string path = this.Info.Name;
+                if(page.AddFilePath)
                 {
-                    path = this.Info.FullName;
-                }
-                else
-                {
-                    path = this.Info.Name;
+                    path += " (" + this.Info.Directory.FullName + ")";
                 }
 
                 if (page.AddProjectName)

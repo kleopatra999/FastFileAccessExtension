@@ -37,19 +37,41 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 - [x] Display setting
 
 ### Show a window which contains all the files from Solution Explorer
+Displays all the files within the loaded solutions and projects in the 
+Fast File Access Window. If only the filenames or e.g. also the projects
+are displayed can be configured in the settings.
 <img src="Images/FastFileAccessWindow.png" width="400" /><br/>
 
 ### Add search to the file window
+In the list of all files can be search using the search box. Several different
+types of search algorithms can be used for searching within the files.
 <img src="Images/FastFileAccessWindowSearch.png" width="400" /><br/>
 
 ### Open file from choose one in the window
+The selected file can be opened in the editor by pressing the return button or
+double click the item.  
 <img src="Images/FastFileAccessWindowOpen.png" width="400" /><br/>
 
 ### Search type setting
+In the settings of Visual Studio the type of the search can be configured
 <img src="Images/SettingsSearchType.png" width="400" /><br/>
 
+| Setting                     | Description                                      |
+|:--------------------------- |:------------------------------------------------ |
+| 1. Search type              | Search algorithm which should be used            |
+| 2. Ignore case              | Case sensitive or un-sensitive search            |
+| 3. Starts with              | Text should start with the given search string   |
+| 4. Max Levenshtein distance | Max. distance which is still recognised as match |
+
 ### Display setting
+Defines what should be displayed in the file list and therefor also for which
+you are able to search for.
 <img src="Images/SettingsDisplayType.png" width="400" /><br/>
+
+| Setting             | Description                              |
+|:------------------- |:---------------------------------------- |
+| 1. Add project name | Add the project name to each file        |
+| 2. Add file paths   | Add the full directory path to each file |
 
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)

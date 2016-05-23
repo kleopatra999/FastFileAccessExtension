@@ -14,12 +14,15 @@
 // limitations under the License.
 //
 using Microsoft.VisualStudio.Shell;
+using System;
 using System.ComponentModel;
 
 namespace FastFileAccessExtension.Settings
 {
     internal sealed class OptionPageGridDisplay : DialogPage
     {
+        public event EventHandler SettingsChanged;
+
         private bool m_AddProjectName = false;
         [Category("Fast File Access")]
         [DisplayName("1. Add project name")]
@@ -33,6 +36,7 @@ namespace FastFileAccessExtension.Settings
             set
             {
                 m_AddProjectName = value;
+                SettingsChanged?.Invoke(this, new EventArgs());
             }
         }
 
@@ -49,6 +53,7 @@ namespace FastFileAccessExtension.Settings
             set
             {
                 m_AddFilePath = value;
+                SettingsChanged?.Invoke(this, new EventArgs());
             }
         }
     }

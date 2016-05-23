@@ -18,6 +18,7 @@ using EnvDTE80;
 using FastFileAccessExtension.Collections;
 using FastFileAccessExtension.Controller;
 using FastFileAccessExtension.Models;
+using FastFileAccessExtension.Settings;
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,7 @@ namespace FastFileAccessExtension.Controls
             {
                 m_Package = value;
                 this.SolutionExplorerFiles = new ObservableFilterCollection<SearchableFileInfo>(m_Package);
+                InitializeSettingsEvents();
             }
         }
 
@@ -99,6 +101,21 @@ namespace FastFileAccessExtension.Controls
             this.ParseFiles();
         }
 
+        private void InitializeSettingsEvents()
+        {
+            var searchPage = (OptionPageGridSearch)m_Package.GetDialogPage(typeof(OptionPageGridSearch));
+            if(searchPage != null)
+            {
+                searchPage.SettingsChanged += SearchPage_SettingsChanged;
+            }
+
+            var displayPage = (OptionPageGridDisplay)m_Package.GetDialogPage(typeof(OptionPageGridDisplay));
+            if (displayPage != null)
+            {
+                displayPage.SettingsChanged += DisplayPage_SettingsChanged;
+            }
+        }
+
         private void ParseFiles()
         {
             if(SolutionExplorerFiles == null)
@@ -116,6 +133,7 @@ namespace FastFileAccessExtension.Controls
                 }
             }
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SolutionExplorerFiles"));
+            this.SolutionExplorerFiles.Refresh();
         }
 
         private string FullPathFromItem(ProjectItem item)
@@ -251,6 +269,16 @@ namespace FastFileAccessExtension.Controls
         }
 
         private void DocumentEvents_DocumentSaved(Document Document)
+        {
+            this.ParseFiles();
+        }
+
+        private void DisplayPage_SettingsChanged(object sender, EventArgs e)
+        {
+            this.ParseFiles();
+        }
+
+        private void SearchPage_SettingsChanged(object sender, EventArgs e)
         {
             this.ParseFiles();
         }

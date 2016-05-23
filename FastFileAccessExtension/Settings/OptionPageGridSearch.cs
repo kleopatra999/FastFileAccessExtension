@@ -14,12 +14,15 @@
 // limitations under the License.
 //
 using Microsoft.VisualStudio.Shell;
+using System;
 using System.ComponentModel;
 
 namespace FastFileAccessExtension.Settings
 {
     internal sealed class OptionPageGridSearch : DialogPage
     {
+        public event EventHandler SettingsChanged;
+
         public enum SearchType
         {
             Contains,
@@ -41,6 +44,7 @@ namespace FastFileAccessExtension.Settings
             set
             {
                 m_TypeOfSearch = value;
+                SettingsChanged?.Invoke(this, new EventArgs());
             }
         }
 
@@ -57,6 +61,7 @@ namespace FastFileAccessExtension.Settings
             set
             {
                 m_IgnoreCase = value;
+                SettingsChanged?.Invoke(this, new EventArgs());
             }
         }
 
@@ -73,6 +78,7 @@ namespace FastFileAccessExtension.Settings
             set
             {
                 m_StartsWith = value;
+                SettingsChanged?.Invoke(this, new EventArgs());
             }
         }
 
@@ -89,6 +95,7 @@ namespace FastFileAccessExtension.Settings
             set
             {
                 m_MaxLevenshteinDistance = value;
+                SettingsChanged?.Invoke(this, new EventArgs());
             }
         }
     }

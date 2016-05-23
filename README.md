@@ -17,7 +17,7 @@ and start typing. With the Up and Down keys you can change from the search box t
 | Command                        | Keybinding     |
 |:------------------------------ |:-------------- |
 | Open search                    | Ctrl+R, Ctrl+D |
-| Cahnge from search to listview | Up or Down key |
+| Change from search to listview | Up or Down key |
 | Open selected file             | Return Key     |
 
 Current search or string matching types:<br/>

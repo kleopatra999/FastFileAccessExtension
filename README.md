@@ -14,11 +14,11 @@ The extension can be used with the keyboard. With the keys Ctrl+R,D you can open
 and start typing. With the Up and Down keys you can change from the search box to the listview.
 <br/>
 
-| Command                        | Keybinding     |
-|:------------------------------ |:-------------- |
-| Open search                    | Ctrl+R, Ctrl+D |
-| Change from search to listview | Up or Down key |
-| Open selected file             | Return Key     |
+| Command                              | Keybinding     |
+|:------------------------------------ |:-------------- |
+| Open search                          | Ctrl+R, Ctrl+D |
+| Change focus from search to listview | Up or Down key |
+| Open selected file                   | Return Key     |
 
 Current search or string matching types:<br/>
 - Contain string<br/>

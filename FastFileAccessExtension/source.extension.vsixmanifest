@@ -7,6 +7,7 @@
         <License>Resources\LICENSE</License>
         <Icon>Resources\Icon.png</Icon>
         <PreviewImage>Resources\Preview.png</PreviewImage>
+        <Tags>search, file search, string match, solution, project, Solution Explorer</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[12.0,16.0)" />

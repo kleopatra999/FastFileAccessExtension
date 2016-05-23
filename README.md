@@ -1,6 +1,6 @@
 # FastFileAccessExtension
 
-Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery])
+Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/e214ce6a-f47c-494a-b0a3-8e1adbd0dd5e)
 
 ---------------------------------------
 

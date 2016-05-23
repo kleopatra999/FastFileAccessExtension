@@ -39,21 +39,21 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 ### Show a window which contains all the files from Solution Explorer
 Displays all the files within the loaded solutions and projects in the 
 Fast File Access Window. If only the filenames or e.g. also the projects
-are displayed can be configured in the settings.
+are displayed can be configured in the settings.<br/>
 <img src="Images/FastFileAccessWindow.png" width="400" /><br/>
 
 ### Add search to the file window
 In the list of all files can be search using the search box. Several different
-types of search algorithms can be used for searching within the files.
+types of search algorithms can be used for searching within the files.<br/>
 <img src="Images/FastFileAccessWindowSearch.png" width="400" /><br/>
 
 ### Open file from choose one in the window
 The selected file can be opened in the editor by pressing the return button or
-double click the item.  
+double click the item.  <br/>
 <img src="Images/FastFileAccessWindowOpen.png" width="400" /><br/>
 
 ### Search type setting
-In the settings of Visual Studio the type of the search can be configured
+In the settings of Visual Studio the type of the search can be configured.<br/>
 <img src="Images/SettingsSearchType.png" width="400" /><br/>
 
 | Setting                     | Description                                      |
@@ -65,7 +65,7 @@ In the settings of Visual Studio the type of the search can be configured
 
 ### Display setting
 Defines what should be displayed in the file list and therefor also for which
-you are able to search for.
+you are able to search for.<br/>
 <img src="Images/SettingsDisplayType.png" width="400" /><br/>
 
 | Setting             | Description                              |

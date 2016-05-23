@@ -6,9 +6,9 @@ Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.m
 
 Fast file access within big projects or solutions.
 
-Search in big solutions with several project and files for one specific file can be annoying.
-To make this easier I wrote this extension. With this extension you can search with several 
-types of searches within all files which are part of the loaded soltion and projects.
+Search in big solutions with several projects and files for one specific file can be annoying.
+To make this easier I wrote this extension. With this extension you can search using several 
+types of searches within all files which are part of the loaded solution and projects.
 <br/><br/>
 The extension can be used with the keyboard. With the keys Ctrl+R,D you can open the search
 and start typing. With the Up and Down keys you can change from the search box to the listview.

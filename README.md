@@ -33,8 +33,8 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 - [x] Show a window which contains all the files from Solution Explorer
 - [x] Add search to the file window
 - [x] Open file from choose one in the window
-- [x] Search type setting
-- [x] Display setting
+- [x] Search type settings
+- [x] Display settings
 
 ### Show a window which contains all the files from Solution Explorer
 Displays all the files within the loaded solutions and projects in the 

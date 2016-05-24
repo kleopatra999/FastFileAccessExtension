@@ -118,7 +118,9 @@ namespace FastFileAccessExtension.Controls
 
         private void ParseFiles()
         {
-            if(SolutionExplorerFiles == null)
+            if(SolutionExplorerFiles == null ||
+               m_DTE.Solution ==  null ||
+               m_DTE.Solution.Projects == null)
             {
                 return;
             }
@@ -126,6 +128,11 @@ namespace FastFileAccessExtension.Controls
             this.SolutionExplorerFiles.Clear();
             foreach (Project pj in m_DTE.Solution.Projects)
             {
+                if(pj == null || pj.ProjectItems == null)
+                {
+                    continue;
+                }
+
                 foreach (ProjectItem item in pj.ProjectItems)
                 {
                     TasksFromProject(item, pj);

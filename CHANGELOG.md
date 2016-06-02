@@ -14,3 +14,10 @@ on the official Visual Studio extension gallery.
 - [x] Show a window which contains all the files from Solution Explorer
 - [x] Add search to the file window
 - [x] Open file from choose one in the window
+mpatibility
+
+## 1.0.0.2
+
+**2016-06-03**
+
+- [x] Skipped Visual Studio 2013 support because of incompatibilities of dependencies

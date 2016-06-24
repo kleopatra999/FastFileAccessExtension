@@ -20,9 +20,6 @@ using System.Windows.Data;
 
 namespace FastFileAccessExtension.Controls
 {
-    /// <summary>
-    /// Interaction logic for SortedListView.xaml
-    /// </summary>
     public partial class SortedListView : ListView
     {
         public string DefaultSearchColumn { get; set; }

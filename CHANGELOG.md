@@ -21,3 +21,9 @@ mpatibility
 **2016-06-03**
 
 - [x] Skipped Visual Studio 2013 support because of incompatibilities of dependencies
+
+## 1.0.0.3
+
+**2016-06-24**
+
+- [x] Minor change and refactorings

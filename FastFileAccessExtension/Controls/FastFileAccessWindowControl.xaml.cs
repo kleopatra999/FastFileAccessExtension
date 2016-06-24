@@ -29,7 +29,7 @@ using System.Windows.Input;
 
 namespace FastFileAccessExtension.Controls
 {
-    public partial class FastFileAccessWindowControl : System.Windows.Controls.UserControl, INotifyPropertyChanged
+    public partial class FastFileAccessWindowControl : UserControl, INotifyPropertyChanged
     {
         private Package m_Package;
         public Package Package

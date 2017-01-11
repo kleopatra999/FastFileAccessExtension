@@ -27,3 +27,9 @@ mpatibility
 **2016-06-24**
 
 - [x] Minor change and refactorings
+
+## 1.0.0.4
+
+**2017-01-11**
+
+- [x] Updated extension to Visual Studio 2017

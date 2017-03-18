@@ -33,3 +33,9 @@ mpatibility
 **2017-01-11**
 
 - [x] Updated extension to Visual Studio 2017
+
+## 1.0.0.5
+
+**2017-03-18**
+
+- [x] Updated the dependencies
